@@ -8,6 +8,7 @@ const Home = () => {
         <div className="space-y-24">
             <Banner></Banner>
             <About></About>
+            
 
         </div>
     );
