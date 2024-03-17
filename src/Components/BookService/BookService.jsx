@@ -1,25 +1,46 @@
+import { useContext } from "react";
 import { useLoaderData } from "react-router-dom";
+import { AuthContext } from "../../Providers/AuthProvider";
 
 
 const BookService = () => {
     const service = useLoaderData();
-    const {title,price,_id} = service;
+    const {title,_id} = service;
+    const {user} = useContext(AuthContext);
+
+    const handleBookedOrder = event =>{
+      event.preventDefault();
+      const form = event.target;
+      const fName = form.fName.value;
+      const lName = form.lName.value;
+      const phone = form.phone.value;
+      const email = form.email.value;
+      const order = {
+        customerId: _id,
+        customerFName: fName,
+        customerLName: lName,
+        customerPhone: phone,
+        customerEmail: email,
+      }
+      console.log(order);
+    }
     return (
         <div>
             <div className="bg-gray-100 rounded-lg px-4 md:px-12 py-4 md:py-12 max-w-6xl mx-auto">
-             <form className="card-body">
+             <form onSubmit={handleBookedOrder} className="card-body">
+              <h2 className="text-center font-bold text-2xl mb-6">Book this Service: {title}</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="form-control">
-          <input type="email" placeholder="First name" className="input input-bordered" required />
+          <input type="text" name="fName" placeholder="First name" className="input input-bordered" required />
         </div>
         <div className="form-control">
-          <input type="password" placeholder="Last name" className="input input-bordered" required />
+          <input type="text" name="lName" placeholder="Last name" className="input input-bordered" required />
         </div>
         <div className="form-control">
-          <input type="email" placeholder="Your Phone" className="input input-bordered" required />
+          <input type="number" name="phone" placeholder="Your Phone" className="input input-bordered" required />
         </div>
         <div className="form-control">
-          <input type="password" placeholder="Your email" className="input input-bordered" required />
+          <input type="email" name="email" defaultValue={user?.email} placeholder="Your email" className="input input-bordered" required />
         </div>
         </div>
         <div className="form-control mt-6">
@@ -31,6 +52,8 @@ const BookService = () => {
         </div>
       </form>
             </div>
+
+            
 
         </div>
     );
