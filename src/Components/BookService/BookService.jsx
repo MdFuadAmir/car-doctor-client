@@ -15,14 +15,28 @@ const BookService = () => {
       const lName = form.lName.value;
       const phone = form.phone.value;
       const email = form.email.value;
+
       const order = {
         customerId: _id,
+        customerTitle: title,
         customerFName: fName,
         customerLName: lName,
         customerPhone: phone,
         customerEmail: email,
       }
       console.log(order);
+      fetch('http://localhost:5000/bookings', {
+        method: 'POST',
+        headers:{
+          'content-type': 'application/json'
+        },
+        body: JSON.stringify(order)
+
+      })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+      })
     }
     return (
         <div>
@@ -52,9 +66,6 @@ const BookService = () => {
         </div>
       </form>
             </div>
-
-            
-
         </div>
     );
 };
