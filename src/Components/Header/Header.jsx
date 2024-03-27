@@ -21,8 +21,11 @@ const Header = () => {
     <li><NavLink to='/blog'>Blog</NavLink></li>
     <li><NavLink to='/contact'>Contact</NavLink></li>
     {
-      user?.email ? <li><button onClick={handleLogOut}>Log Out</button></li> :
-    <li><NavLink to='/login'>Log in</NavLink></li>
+      user?.email ? <>
+      <li><NavLink to='/bookings'>My Bookings</NavLink></li> 
+      <li><button onClick={handleLogOut}>Log Out</button></li> 
+      </>
+      : <li><NavLink to='/login'>Log in</NavLink></li>
     }
     </>
     return (
